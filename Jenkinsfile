@@ -18,22 +18,19 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
+                    export PATH=$PATH:/var/lib/jenkins/.dotnet/tools
+
                     dotnet tool install --global dotnet-sonarscanner || true
-                    export PATH="$PATH:$HOME/.dotnet/tools"
 
                     dotnet sonarscanner begin \
-                      /k:"sonarqube-test" \
-                      /d:sonar.host.url=http://localhost:9000 \
-                      /d:sonar.login=$SONAR_TOKEN
+                      /k:"sonarqube-test"
 
                     dotnet build
 
-                    dotnet sonarscanner end \
-                      /d:sonar.login=$SONAR_TOKEN
+                    dotnet sonarscanner end
                     '''
                 }
             }
         }
     }
 }
-selam
