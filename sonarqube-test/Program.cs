@@ -23,6 +23,7 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 });
+app.MapGet("/health", () => Results.Ok("OK"));
 
 app.Run();
 
